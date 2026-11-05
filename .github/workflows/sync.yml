@@ -2,11 +2,11 @@ name: sync-playlist
 
 on:
   schedule:
-    - cron: "0 3 * * 1"   # every Monday 03:00 UTC
-  workflow_dispatch:       # allow manual trigger from the Actions tab
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
 
 permissions:
-  contents: write          # needed to commit the refreshed playlist
+  contents: write
 
 jobs:
   refresh:
@@ -21,11 +21,11 @@ jobs:
           python-version: "3.12"
 
       - name: Regenerate playlist
-        run: python3 build.py sync || python3 build.py
+        run: python3 build.py
 
       - name: Commit if changed
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add playlists/free_iptv.m3u
           if git diff --cached --quiet; then
